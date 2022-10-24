@@ -1,7 +1,8 @@
 package ir.roela.metro
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,30 +36,19 @@ class MapFragment : Fragment() {
         mapWebView.settings.displayZoomControls = false
         when (mapType.value) {
             MapType.METRO.value -> {
-                mapWebView.loadUrl("file:///android_asset/metro.html")
+                loadMap("file:///android_asset/metro.html")
             }
             MapType.BUS.value -> {
-                mapWebView.loadUrl("file:///android_asset/brt.html")
+                loadMap("file:///android_asset/brt.html")
             }
         }
         return binding.root
     }
 
-    private fun injectImageResource(path: String) {
-        try {
-//            mapWebView.evaluateJavascript(
-//                "javascript:(function() {document.getElementById('img').src = '${path}' })()",
-//                null
-//            )
-            mapWebView.evaluateJavascript(
-                "javascript:(function() {document.getElementById('img').style.backgroundColor = '#000' })()",
-                null
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e("MapFragment", e.message.toString())
-        }
-
+    private fun loadMap(url: String) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            mapWebView.loadUrl(url)
+        }, 500)
     }
 
 
