@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
 
-        viewPager.isUserInputEnabled = false;
+        viewPager.isUserInputEnabled = false
 
         val viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
